@@ -15,6 +15,44 @@ class ShuntingYard:
             return 3
         return 0
 
+    def validate_syntax(self, tokens: list[str]):
+        if not tokens:
+            raise ValueError("Expression is empty.")
+
+        operators = {'+', '-', '*', '/', '^'}
+
+        # 1. Check expression boundaries
+        if tokens[0] in operators:
+            raise ValueError(f"Expression cannot start with an operator: '{tokens[0]}'")
+        if tokens[-1] in operators:
+            raise ValueError(f"Expression cannot end with an operator: '{tokens[-1]}'")
+
+        # 2. Check token pairs
+        for i in range(len(tokens) - 1):
+            curr, nxt = tokens[i], tokens[i + 1]
+
+            # Consecutive operators: e.g., "+ *"
+            if curr in operators and nxt in operators:
+                raise ValueError(f"Invalid consecutive operators: '{curr} {nxt}'")
+
+            # Consecutive operands: e.g., "5 3"
+            curr_is_operand = curr not in operators and curr not in ('(', ')')
+            nxt_is_operand = nxt not in operators and nxt not in ('(', ')')
+            if curr_is_operand and nxt_is_operand:
+                raise ValueError(f"Missing operator between operands: '{curr}' and '{nxt}'")
+
+            # Empty parentheses: "()"
+            if curr == '(' and nxt == ')':
+                raise ValueError("Empty parentheses '()' are not allowed.")
+
+            # Operator immediately following '(': e.g., "( +"
+            if curr == '(' and nxt in operators:
+                raise ValueError(f"Unexpected operator after '(': '{curr}{nxt}'")
+
+            # Operator immediately before ')': e.g., "+ )"
+            if curr in operators and nxt == ')':
+                raise ValueError(f"Unexpected operator before ')': '{curr}{nxt}'")
+
     def tokenize(self, expr: str):
         if not expr or not expr.strip():
             raise ValueError("Expression is empty.")
@@ -53,6 +91,8 @@ class ShuntingYard:
                     raise ValueError("Mismatched parentheses in expression.")
         if open_brackets != 0:
             raise ValueError("Mismatched parentheses in expression.")
+
+        self.validate_syntax(tokens)
 
         return tokens
 
