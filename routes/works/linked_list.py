@@ -18,6 +18,12 @@ def linked_list_view():
                 found = linked_list.delete(val)
                 if not found:
                     message = f"Node '{val}' not found in the list."
+        elif action == 'delete_head':
+            if not linked_list.delete_head():
+                message = "Cannot delete head: list is empty."
+        elif action == 'delete_tail':
+            if not linked_list.delete_tail():
+                message = "Cannot delete tail: list is empty."
         elif action == 'clear':
             linked_list.clear()
     return render_template('linkedlist.html', nodes=linked_list.to_list(), message=message)

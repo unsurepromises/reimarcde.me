@@ -32,6 +32,24 @@ class LinkedList:
             return True
         return False
 
+    def delete_head(self):
+        if not self.head:
+            return False
+        self.head = self.head.next
+        return True
+
+    def delete_tail(self):
+        if not self.head:
+            return False
+        if not self.head.next:
+            self.head = None
+            return True
+        curr = self.head
+        while curr.next.next:
+            curr = curr.next
+        curr.next = None
+        return True
+
     def clear(self):
         self.head = None
 

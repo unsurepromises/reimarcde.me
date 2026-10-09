@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Infix to Postfix{% endblock %}
+
+{% block content %}
+<a href="/works" class="back-ledger-link">← Back to Works</a>
+
+<section class="header-ledger">
+  <h1 class="header-title">Infix to Postfix</h1>
+  <p class="header-subtitle">Converts mathematical infix expressions to postfix notation (RPN).</p>
+</section>
+
+<div class="dossier-panel" style="max-width: 600px; margin: 0 auto;">
+  <form action="/works/shunting-yard" method="post" class="form-dense">
+    <div class="form-group">
+      <label for="expression" class="form-label">Expression</label>
+      <input 
+        type="text" 
+        id="expression" 
+        name="expression" 
+        class="input-field" 
+        style="font-family: var(--font-mono);"
+        placeholder="Enter infix expression (e.g. (A + B) * C ^ 2)..."
+        value="{{ expression|default('') }}"
+        autocomplete="off"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn-control btn-primary">Convert</button>
+    </div>
+  </form>
+
+  {% if error %}
+  <div class="alert-banner" role="alert" style="margin-top: 1.25rem;">
+    <span class="alert-text">{{ error }}</span>
+  </div>
+  {% elif message %}
+  <div class="alert-banner" role="alert" style="margin-top: 1.25rem;">
+    <span class="alert-text">{{ message }}</span>
+  </div>
+  {% endif %}
+
+  {% if result is not none and result != '' %}
+  <section class="result-ledger" style="margin-top: 1.25rem;">
+    <div class="result-ledger-header">
+      <span class="result-tag">Postfix Result</span>
+    </div>
+    <div class="result-output-box">{{ result }}</div>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}
