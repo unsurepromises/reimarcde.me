@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Area of a Triangle{% endblock %}
+
+{% block content %}
+<a href="/works" class="back-ledger-link">← Back to Works</a>
+
+<section class="header-ledger">
+  <h1 class="header-title">Area of a Triangle</h1>
+  <p class="header-subtitle">Calculates the area of a triangle given base and height.</p>
+</section>
+
+<div class="dossier-panel">
+  <form action="/works/area/triangle" method="post" class="form-dense">
+    <div class="form-group">
+      <label for="base" class="form-label">Base</label>
+      <input 
+        type="number" 
+        step="any" 
+        min="0"
+        id="base" 
+        name="base" 
+        class="input-field" 
+        placeholder="Enter base value..." 
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="height" class="form-label">Height</label>
+      <input 
+        type="number" 
+        step="any" 
+        min="0"
+        id="height" 
+        name="height" 
+        class="input-field" 
+        placeholder="Enter height value..." 
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn-control btn-primary">Calculate Area</button>
+    </div>
+  </form>
+</div>
+
+{% if result is not none %}
+<section class="result-ledger">
+  <div class="result-ledger-header">
+    <span class="result-tag">Result</span>
+  </div>
+
+  <div class="result-output-box">Area: {{ "%.5f"|format(result) }}</div>
+</section>
+{% endif %}
+{% endblock %}

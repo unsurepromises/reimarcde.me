@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+<section class="header-ledger">
+  <h1 class="header-title">Contact</h1>
+  <p class="header-subtitle">Get in touch for academic or software inquiries.</p>
+</section>
+
+<section class="section-block">
+  <div class="contact-card-list">
+    <!-- Channel 1: Email -->
+    <div class="contact-channel-item">
+      <div class="channel-info">
+        <div class="channel-title">Email</div>
+        <div class="channel-value">sjohnreimarc@gmail.com</div>
+      </div>
+      <div class="channel-action" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <button 
+          type="button" 
+          class="btn-control" 
+          onclick="navigator.clipboard.writeText('sjohnreimarc@gmail.com').then(()=>{this.textContent='Copied!'; setTimeout(()=>this.textContent='Copy', 1500);})"
+          aria-label="Copy email address"
+        >
+          Copy
+        </button>
+        <a href="mailto:sjohnreimarc@gmail.com" class="btn-control btn-primary">Send Email</a>
+      </div>
+    </div>
+
+    <!-- Channel 2: GitHub -->
+    <div class="contact-channel-item">
+      <div class="channel-info">
+        <div class="channel-title">GitHub</div>
+        <div class="channel-value">github.com/unsurepromises</div>
+      </div>
+      <div class="channel-action">
+        <a href="https://github.com/unsurepromises" target="_blank" rel="noopener noreferrer" class="btn-control">
+          View GitHub
+        </a>
+      </div>
+    </div>
+
+    <!-- Channel 3: LinkedIn -->
+    <div class="contact-channel-item">
+      <div class="channel-info">
+        <div class="channel-title">LinkedIn</div>
+        <div class="channel-value">linkedin.com/in/reimarcsohitado</div>
+      </div>
+      <div class="channel-action">
+        <a href="https://linkedin.com/in/reimarcsohitado" target="_blank" rel="noopener noreferrer" class="btn-control">
+          View Profile
+        </a>
+      </div>
+    </div>
+
+    <!-- Channel 4: Location -->
+    <div class="contact-channel-item">
+      <div class="channel-info">
+        <div class="channel-title">Location</div>
+        <div class="channel-value">Metro Manila, Philippines</div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

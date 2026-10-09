@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Portfolio{% endblock %} — John Reimarc Sohitado</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="header-nav">
+    <div class="nav-container">
+      <a href="/" class="nav-brand">
+        <span class="brand-name">reimarcde.me</span>
+      </a>
+      <nav class="nav-menu" aria-label="Primary Navigation">
+        <a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">Home</a>
+        <a href="/works" class="nav-link {% if request.path.startswith('/works') %}active{% endif %}">Works</a>
+        <a href="/profile" class="nav-link {% if request.path == '/profile' %}active{% endif %}">Profile</a>
+        <a href="/contact" class="nav-link {% if request.path == '/contact' %}active{% endif %}">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer-dossier">
+    <div class="footer-inner">
+      <div class="footer-meta">
+        John Reimarc Sohitado • Computer Engineering
+      </div>
+      <div class="footer-status">
+        <span>Polytechnic University of the Philippines</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Linked List UI{% endblock %}
+
+{% block content %}
+<a href="/works" class="back-ledger-link">← Back to Works</a>
+
+<section class="header-ledger">
+  <h1 class="header-title">Linked List UI</h1>
+  <p class="header-subtitle">Interactive visualizer for node insertion, deletion, and traversal.</p>
+</section>
+
+<!-- Visualizer Panel -->
+<section class="visualizer-container">
+  <div class="visualizer-header">
+    <div class="dossier-panel-title">Current List</div>
+    <div class="badge">{{ nodes|length }} node{% if nodes|length != 1 %}s{% endif %}</div>
+  </div>
+
+  <div class="visualizer-scroll" tabindex="0" role="region" aria-label="Linked List Chain">
+    <div class="node-chain">
+      <span class="node-tag-head">HEAD</span>
+      <span class="chain-pointer">&rarr;</span>
+
+      {% if nodes %}
+        {% for node in nodes %}
+          <div class="node-block">
+            <span class="node-block-val">{{ node }}</span>
+          </div>
+          <span class="chain-pointer">&rarr;</span>
+        {% endfor %}
+      {% else %}
+        <span class="empty-state-notice">List is currently empty</span>
+        <span class="chain-pointer">&rarr;</span>
+      {% endif %}
+
+      <span class="node-tag-null">NULL</span>
+    </div>
+  </div>
+</section>
+
+{% if message %}
+<div class="alert-banner" role="alert">
+  <span class="alert-text">{{ message }}</span>
+</div>
+{% endif %}
+
+<!-- Operations -->
+<section class="section-block">
+  <div class="section-ledger-bar">
+    <h2 class="section-title">Operations</h2>
+  </div>
+
+  <div class="controls-grid">
+    <!-- Operation 1: Append -->
+    <div class="controls-card">
+      <div class="dossier-panel-header">
+        <span class="dossier-panel-title">Append Node</span>
+      </div>
+      <form action="/works/linkedlist" method="post" class="form-dense">
+        <input type="hidden" name="action" value="add">
+        <div class="form-group">
+          <label for="node_value" class="form-label">Node Value</label>
+          <input 
+            type="text" 
+            id="node_value" 
+            name="node_value" 
+            class="input-field" 
+            placeholder="Enter value..." 
+            autocomplete="off"
+            required
+          >
+        </div>
+        <button type="submit" class="btn-control btn-primary">Append Node</button>
+      </form>
+    </div>
+
+    <!-- Operation 2: Delete -->
+    <div class="controls-card">
+      <div class="dossier-panel-header">
+        <span class="dossier-panel-title">Delete Node</span>
+      </div>
+      <form action="/works/linkedlist" method="post" class="form-dense">
+        <input type="hidden" name="action" value="delete">
+        <div class="form-group">
+          <label for="delete_value" class="form-label">Node Value</label>
+          <input 
+            type="text" 
+            id="delete_value" 
+            name="delete_value" 
+            class="input-field" 
+            placeholder="Enter value to delete..." 
+            autocomplete="off"
+            required
+          >
+        </div>
+        <button type="submit" class="btn-control btn-danger">Delete Node</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Operation 3: Clear -->
+  <div class="purge-card">
+    <div>
+      <span class="dossier-panel-title">Clear Entire List</span>
+    </div>
+    <form action="/works/linkedlist" method="post" style="margin: 0;">
+      <input type="hidden" name="action" value="clear">
+      <button type="submit" class="btn-control btn-secondary">Clear List</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Uppercase Converter{% endblock %}
+
+{% block content %}
+<a href="/works" class="back-ledger-link">← Back to Works</a>
+
+<section class="header-ledger">
+  <h1 class="header-title">Uppercase Converter</h1>
+  <p class="header-subtitle">Converts input text strings to uppercase.</p>
+</section>
+
+<div class="dossier-panel">
+  <form action="/works/touppercase" method="post" class="form-dense">
+    <div class="form-group">
+      <label for="inputString" class="form-label">Input Text</label>
+      <input 
+        type="text" 
+        id="inputString" 
+        name="inputString" 
+        class="input-field" 
+        placeholder="Type or paste text here..."
+        autocomplete="off"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn-control btn-primary">Convert to Uppercase</button>
+    </div>
+  </form>
+</div>
+
+{% if result is not none %}
+<section class="result-ledger">
+  <div class="result-ledger-header">
+    <span class="result-tag">Converted Text</span>
+  </div>
+  
+  <div class="result-output-box">{{ result }}</div>
+</section>
+{% endif %}
+{% endblock %}

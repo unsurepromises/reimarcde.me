@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="header-ledger">
+  <h1 class="header-title">John Reimarc Sohitado</h1>
+  <p class="header-subtitle">Computer Engineering Student at Polytechnic University of the Philippines</p>
+</section>
+
+<section class="section-block">
+  <div class="section-ledger-bar">
+    <h2 class="section-title">Project Details</h2>
+  </div>
+  
+  <div class="table-responsive">
+    <table class="data-table" aria-label="Project Details">
+      <tbody>
+        <tr>
+          <td class="col-label">Course</td>
+          <td class="col-val">Data Structures and Algorithms (BSCpE 2-1)</td>
+        </tr>
+        <tr>
+          <td class="col-label">Tech Stack</td>
+          <td class="col-val">Python, Flask, Gunicorn</td>
+        </tr>
+        <tr>
+          <td class="col-label">Source Code</td>
+          <td class="col-val">
+            <a href="https://github.com/unsurepromises/AcademicCoursework" target="_blank" rel="noopener noreferrer" class="text-link">github.com/unsurepromises/AcademicCoursework</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top: 1.25rem;">
+    <a href="/works" class="btn-control">View Works →</a>
+  </div>
+</section>
+{% endblock %}

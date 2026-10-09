@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<section class="header-ledger">
+  <h1 class="header-title">Profile</h1>
+  <p class="header-subtitle">Academic background and technical coursework.</p>
+</section>
+
+<!-- Academic Background -->
+<section class="section-block">
+  <div class="section-ledger-bar">
+    <h2 class="section-title">Academic Details</h2>
+  </div>
+
+  <div class="table-responsive">
+    <table class="data-table" aria-label="Academic Details">
+      <tbody>
+        <tr>
+          <td class="col-label">Degree</td>
+          <td class="col-val">BS Computer Engineering, 2nd Year</td>
+        </tr>
+        <tr>
+          <td class="col-label">University</td>
+          <td class="col-val">Polytechnic University of the Philippines</td>
+        </tr>
+        <tr>
+          <td class="col-label">Current Coursework</td>
+          <td class="col-val">Data Structures &amp; Algorithms, Object-Oriented Programming</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Skills Section -->
+<section class="section-block">
+  <div class="section-ledger-bar">
+    <h2 class="section-title">Skills</h2>
+  </div>
+
+  <div class="dossier-panel">
+    <div class="competency-tag-grid">
+      <span class="tech-tag">Python</span>
+      <span class="tech-tag">C++</span>
+      <span class="tech-tag">Flask</span>
+      <span class="tech-tag">Git</span>
+      <span class="tech-tag">Linux</span>
+      <span class="tech-tag">Data Structures</span>
+    </div>
+  </div>
+</section>
+
+<!-- Favorite Quote -->
+<section class="section-block">
+  <div class="section-ledger-bar">
+    <h2 class="section-title">Favorite Quote</h2>
+  </div>
+
+  <blockquote class="philosophical-quote">
+    <p>&ldquo;It never ceases to amaze me: we all love ourselves more than other people, but care more about their opinion than our own.&rdquo;</p>
+    <cite>&mdash; Marcus Aurelius, Meditations</cite>
+  </blockquote>
+</section>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Works{% endblock %}
+
+{% block content %}
+<section class="header-ledger">
+  <h1 class="header-title">Works</h1>
+  <p class="header-subtitle">Lab exercises for Data Structures and Algorithms.</p>
+</section>
+
+<section class="section-block">
+  <div class="dossier-grid-2">
+    <!-- Card 1: Uppercase Converter -->
+    <article class="catalog-card">
+      <div class="card-top">
+        <h3 class="card-title">Uppercase Converter</h3>
+        <p class="card-desc">Converts input text strings to uppercase.</p>
+      </div>
+      <div class="card-actions">
+        <a href="/works/touppercase" class="btn-control">Open →</a>
+      </div>
+    </article>
+
+    <!-- Card 2: Area of a Circle -->
+    <article class="catalog-card">
+      <div class="card-top">
+        <h3 class="card-title">Area of a Circle</h3>
+        <p class="card-desc">Calculates the area of a circle from a given radius.</p>
+      </div>
+      <div class="card-actions">
+        <a href="/works/area/circle" class="btn-control">Open →</a>
+      </div>
+    </article>
+
+    <!-- Card 3: Area of a Triangle -->
+    <article class="catalog-card">
+      <div class="card-top">
+        <h3 class="card-title">Area of a Triangle</h3>
+        <p class="card-desc">Calculates the area of a triangle given base and height.</p>
+      </div>
+      <div class="card-actions">
+        <a href="/works/area/triangle" class="btn-control">Open →</a>
+      </div>
+    </article>
+
+    <!-- Card 4: Linked List UI -->
+    <article class="catalog-card">
+      <div class="card-top">
+        <h3 class="card-title">Linked List UI</h3>
+        <p class="card-desc">Interactive visualizer for node insertion, deletion, and traversal.</p>
+      </div>
+      <div class="card-actions">
+        <a href="/works/linkedlist" class="btn-control">Open →</a>
+      </div>
+    </article>
+  </div>
+</section>
+{% endblock %}
