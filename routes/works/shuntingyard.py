@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, request
 shuntingyard_bp = Blueprint('shuntingyard', __name__)
 shunting_yard_bp = shuntingyard_bp
 
-
+# if u are seeing this, I am tired.
 class ShuntingYard:
     def precedence(self, operator):
         if operator in ('+', '-'):
@@ -21,13 +21,13 @@ class ShuntingYard:
 
         operators = {'+', '-', '*', '/', '^'}
 
-        # 1. Check expression boundaries
+        # 1. Check expression boundaries (edge case)
         if tokens[0] in operators:
             raise ValueError(f"Expression cannot start with an operator: '{tokens[0]}'")
         if tokens[-1] in operators:
             raise ValueError(f"Expression cannot end with an operator: '{tokens[-1]}'")
 
-        # 2. Check token pairs
+        # 2. Check token pairs (edge case)
         for i in range(len(tokens) - 1):
             curr, nxt = tokens[i], tokens[i + 1]
 

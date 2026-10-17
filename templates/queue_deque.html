@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="works-container" style="max-width: 900px; margin: 2rem auto; padding: 0 1rem;">
+  <a href="{{ url_for('works.index') }}" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">← Back to Works</a>
+  
+  <h2 style="margin-top: 1rem; color: var(--text-primary); font-size: 1.75rem; font-weight: 700;">Queue & Deque Data Structures</h2>
+  <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Interactive visualizer for Singly-Linked Queue and Doubly-Linked Deque.</p>
+  <hr style="border: none; border-top: 1px solid var(--border-subtle); margin-bottom: 2rem;">
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, msg in messages %}
+        <div class="alert-banner alert-{{ category }}">{{ msg }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- ================= SINGLY LINKED QUEUE ================= -->
+  <h3 style="color: var(--text-primary); font-size: 1.25rem; margin-bottom: 1rem;">Singly Linked Queue</h3>
+
+  <!-- Current Queue Display Card -->
+  <div class="card-box">
+    <div class="card-box-header">
+      <span class="card-title">Current Queue</span>
+      <span class="node-count-badge">{{ queue|length }} nodes</span>
+    </div>
+    <div class="canvas-display">
+      <span class="pointer-badge pointer-head">FRONT</span>
+      <span class="canvas-arrow">→</span>
+      {% if queue %}
+        {% for item in queue %}
+          <div class="list-node">{{ item }}</div>
+          <span class="canvas-arrow">→</span>
+        {% endfor %}
+      {% else %}
+        <span class="canvas-empty">Queue is currently empty</span>
+        <span class="canvas-arrow">→</span>
+      {% endif %}
+      <span class="pointer-badge pointer-tail">REAR</span>
+    </div>
+  </div>
+
+  <!-- Queue Operations -->
+  <div class="section-label">Operations</div>
+  <form method="POST">
+    <div class="grid-2-col">
+      <!-- Enqueue Card -->
+      <div class="card-box">
+        <h4 class="op-card-title">Enqueue Node</h4>
+        <label class="op-input-label">Node Value</label>
+        <input type="text" name="value" placeholder="Enter value..." class="dark-input">
+        <button type="submit" name="action" value="enqueue" class="btn-green" style="margin-top: 1rem;">Enqueue</button>
+      </div>
+
+      <!-- Dequeue Card -->
+      <div class="card-box">
+        <h4 class="op-card-title">Dequeue Node</h4>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">Removes the front element from the queue (FIFO).</p>
+        <button type="submit" name="action" value="dequeue" class="btn-outline-danger">Dequeue</button>
+      </div>
+    </div>
+
+    <!-- Clear Strip -->
+    <div class="card-box strip-box" style="margin-top: 1rem;">
+      <span style="color: var(--text-muted); font-size: 0.9rem;">Clear Entire Queue</span>
+      <button type="submit" name="action" value="clear_queue" class="btn-dark-sm">Clear Queue</button>
+    </div>
+  </form>
+
+  <hr style="border: none; border-top: 1px solid var(--border-subtle); margin: 3rem 0;">
+
+  <!-- ================= DOUBLY LINKED DEQUE ================= -->
+  <h3 style="color: var(--text-primary); font-size: 1.25rem; margin-bottom: 1rem;">Doubly Linked Deque</h3>
+
+  <!-- Current Deque Display Card -->
+  <div class="card-box">
+    <div class="card-box-header">
+      <span class="card-title">Current Deque</span>
+      <span class="node-count-badge">{{ deque|length }} nodes</span>
+    </div>
+    <div class="canvas-display">
+      <span class="pointer-badge pointer-head">FRONT</span>
+      <span class="canvas-arrow">⇄</span>
+      {% if deque %}
+        {% for item in deque %}
+          <div class="list-node">{{ item }}</div>
+          <span class="canvas-arrow">⇄</span>
+        {% endfor %}
+      {% else %}
+        <span class="canvas-empty">Deque is currently empty</span>
+        <span class="canvas-arrow">⇄</span>
+      {% endif %}
+      <span class="pointer-badge pointer-tail">REAR</span>
+    </div>
+  </div>
+
+  <!-- Deque Operations -->
+  <div class="section-label">Operations</div>
+  <form method="POST">
+    <div class="grid-2-col">
+      <!-- Front Operations -->
+      <div class="card-box">
+        <h4 class="op-card-title">Front Operations</h4>
+        <label class="op-input-label">Node Value</label>
+        <input type="text" name="value_front" placeholder="Enter front value..." class="dark-input">
+        <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+          <button type="submit" name="action" value="add_front" class="btn-green">Add Front</button>
+          <button type="submit" name="action" value="remove_front" class="btn-outline-danger">Remove Front</button>
+        </div>
+      </div>
+
+      <!-- Rear Operations -->
+      <div class="card-box">
+        <h4 class="op-card-title">Rear Operations</h4>
+        <label class="op-input-label">Node Value</label>
+        <input type="text" name="value_rear" placeholder="Enter rear value..." class="dark-input">
+        <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+          <button type="submit" name="action" value="add_rear" class="btn-green">Add Rear</button>
+          <button type="submit" name="action" value="remove_rear" class="btn-outline-danger">Remove Rear</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clear Strip -->
+    <div class="card-box strip-box" style="margin-top: 1rem;">
+      <span style="color: var(--text-muted); font-size: 0.9rem;">Clear Entire Deque</span>
+      <button type="submit" name="action" value="clear_deque" class="btn-dark-sm">Clear Deque</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
