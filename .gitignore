@@ -1,0 +1,14 @@
+.idea/
+*.iml
+
+.venv/
+venv/
+ENV/
+
+
+__pycache__/
+*.pyc
+*.pyo
+
+.agents/
+.gemini/
