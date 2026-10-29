@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Portfolio{% endblock %} — John Reimarc Sohitado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -35,5 +38,37 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      const scrollKey = 'scroll_pos_' + window.location.pathname;
+
+      function restoreScroll() {
+        const savedScroll = sessionStorage.getItem(scrollKey);
+        if (savedScroll !== null) {
+          window.scrollTo(0, parseInt(savedScroll, 10));
+          sessionStorage.removeItem(scrollKey);
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', restoreScroll);
+      } else {
+        restoreScroll();
+      }
+
+      function saveScroll() {
+        sessionStorage.setItem(scrollKey, window.scrollY || window.pageYOffset || 0);
+      }
+
+      document.addEventListener('submit', function (e) {
+        if (e.target && e.target.tagName === 'FORM') {
+          saveScroll();
+        }
+      }, true);
+
+      window.addEventListener('beforeunload', saveScroll);
+    })();
+  </script>
 </body>
 </html>

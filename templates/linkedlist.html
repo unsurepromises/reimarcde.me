@@ -1,58 +1,24 @@
 {% extends "base.html" %}
 
-{% block title %}Linked List UI{% endblock %}
+{% block title %}Linked List Visualizer{% endblock %}
 
 {% block content %}
 <a href="/works" class="back-ledger-link">← Back to Works</a>
 
 <section class="header-ledger">
-  <h1 class="header-title">Linked List UI</h1>
-  <p class="header-subtitle">Interactive visualizer for node insertion, deletion, and traversal.</p>
-</section>
-
-<!-- Visualizer Panel -->
-<section class="visualizer-container">
-  <div class="visualizer-header">
-    <div class="dossier-panel-title">Current List</div>
-    <div class="badge">{{ nodes|length }} node{% if nodes|length != 1 %}s{% endif %}</div>
-  </div>
-
-  <div class="visualizer-scroll" tabindex="0" role="region" aria-label="Linked List Chain">
-    <div class="node-chain">
-      <span class="node-tag-head">HEAD</span>
-      <span class="chain-pointer">&rarr;</span>
-
-      {% if nodes %}
-        {% for node in nodes %}
-          <div class="node-block">
-            <span class="node-block-val">{{ node }}</span>
-          </div>
-          <span class="chain-pointer">&rarr;</span>
-        {% endfor %}
-      {% else %}
-        <span class="empty-state-notice">List is currently empty</span>
-        <span class="chain-pointer">&rarr;</span>
-      {% endif %}
-
-      <span class="node-tag-null">NULL</span>
-    </div>
-  </div>
+  <h1 class="header-title">Singly-Linked List</h1>
+  <p class="header-subtitle">Interactive visualizer for node insertion, deletion, and pointer traversal.</p>
 </section>
 
 {% if message %}
-<div class="alert-banner" role="alert">
+<div class="alert-banner alert-error" role="alert">
   <span class="alert-text">{{ message }}</span>
 </div>
 {% endif %}
 
-<!-- Operations -->
-<section class="section-block">
-  <div class="section-ledger-bar">
-    <h2 class="section-title">Operations</h2>
-  </div>
-
-  <div class="controls-grid">
-    <!-- Operation 1: Append -->
+<div class="workbench-split">
+  <!-- Left Control Sidebar -->
+  <aside class="workbench-sidebar">
     <div class="controls-card">
       <div class="dossier-panel-header">
         <span class="dossier-panel-title">Append Node</span>
@@ -71,14 +37,13 @@
             required
           >
         </div>
-        <button type="submit" class="btn-control btn-primary">Append Node</button>
+        <button type="submit" class="btn-control btn-primary btn-full">Append Node</button>
       </form>
     </div>
 
-    <!-- Operation 2: Delete -->
     <div class="controls-card">
       <div class="dossier-panel-header">
-        <span class="dossier-panel-title">Delete Node</span>
+        <span class="dossier-panel-title">Delete by Value</span>
       </div>
       <form action="/works/linkedlist" method="post" class="form-dense">
         <input type="hidden" name="action" value="delete">
@@ -94,39 +59,68 @@
             required
           >
         </div>
-        <button type="submit" class="btn-control btn-danger">Delete Node</button>
+        <button type="submit" class="btn-control btn-danger btn-full">Delete Node</button>
       </form>
     </div>
-  </div>
 
-  <!-- Positional Deletion -->
-  <div class="operation-card controls-card" style="margin-top: 1rem;">
-    <div class="card-title">Positional Deletion</div>
-    <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
-      <form action="/works/linkedlist" method="POST" style="margin: 0; flex: 1;">
-        <input type="hidden" name="action" value="delete_head">
-        <button type="submit" class="btn" style="width: 100%; border: 1px solid var(--border-subtle); background: var(--bg-surface-elevated); color: var(--text-primary); padding: 0.5rem 1rem; border-radius: 2px; font-size: 0.85rem; cursor: pointer;">
-          Delete Head
-        </button>
-      </form>
-      <form action="/works/linkedlist" method="POST" style="margin: 0; flex: 1;">
-        <input type="hidden" name="action" value="delete_tail">
-        <button type="submit" class="btn" style="width: 100%; border: 1px solid var(--border-subtle); background: var(--bg-surface-elevated); color: var(--text-primary); padding: 0.5rem 1rem; border-radius: 2px; font-size: 0.85rem; cursor: pointer;">
-          Delete Tail
-        </button>
-      </form>
+    <div class="controls-card">
+      <div class="dossier-panel-header">
+        <span class="dossier-panel-title">Positional Deletion</span>
+      </div>
+      <div class="button-group-grid">
+        <form action="/works/linkedlist" method="POST" style="margin: 0;">
+          <input type="hidden" name="action" value="delete_head">
+          <button type="submit" class="btn-control btn-full">
+            Delete Head
+          </button>
+        </form>
+        <form action="/works/linkedlist" method="POST" style="margin: 0;">
+          <input type="hidden" name="action" value="delete_tail">
+          <button type="submit" class="btn-control btn-full">
+            Delete Tail
+          </button>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <!-- Operation 3: Clear -->
-  <div class="purge-card">
-    <div>
-      <span class="dossier-panel-title">Clear Entire List</span>
+    <div class="purge-card">
+      <span class="dossier-panel-title">Clear List</span>
+      <form action="/works/linkedlist" method="post" style="margin: 0; width: 100%;">
+        <input type="hidden" name="action" value="clear">
+        <button type="submit" class="btn-control btn-secondary btn-full">Clear List</button>
+      </form>
     </div>
-    <form action="/works/linkedlist" method="post" style="margin: 0;">
-      <input type="hidden" name="action" value="clear">
-      <button type="submit" class="btn-control btn-secondary">Clear List</button>
-    </form>
-  </div>
-</section>
+  </aside>
+
+  <!-- Right Viewport -->
+  <main class="workbench-viewport" tabindex="0" role="region" aria-label="Linked List Memory Space">
+    <div class="workbench-viewport-header">
+      <span class="dossier-panel-title">Current List</span>
+      <span class="badge">{{ nodes|length }} node{% if nodes|length != 1 %}s{% endif %}</span>
+    </div>
+
+    <div class="viewport-canvas">
+      <span class="reg-tag reg-head">HEAD</span>
+      <span class="chain-pointer">&rarr;</span>
+
+      {% if nodes %}
+        {% for node in nodes %}
+          <div class="mem-struct-wrapper">
+            <span class="mem-addr-tag">0x7FF0{{ loop.index0 * 4 }}</span>
+            <div class="mem-struct">
+              <span class="mem-cell mem-cell-data">{{ node }}</span>
+              <span class="mem-cell mem-cell-next">*NEXT</span>
+            </div>
+          </div>
+          <span class="chain-pointer">&rarr;</span>
+        {% endfor %}
+      {% else %}
+        <span class="empty-state-notice">List is currently empty</span>
+        <span class="chain-pointer">&rarr;</span>
+      {% endif %}
+
+      <span class="reg-tag reg-null">NULL</span>
+    </div>
+  </main>
+</div>
 {% endblock %}

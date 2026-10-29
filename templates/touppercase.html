@@ -7,10 +7,10 @@
 
 <section class="header-ledger">
   <h1 class="header-title">Uppercase Converter</h1>
-  <p class="header-subtitle">Converts input text strings to uppercase.</p>
+  <p class="header-subtitle">Converts input text strings to uppercase characters.</p>
 </section>
 
-<div class="dossier-panel">
+<div class="dossier-panel" style="max-width: 640px;">
   <form action="/works/touppercase" method="post" class="form-dense">
     <div class="form-group">
       <label for="inputString" class="form-label">Input Text</label>
@@ -32,7 +32,7 @@
 </div>
 
 {% if result is not none %}
-<section class="result-ledger">
+<section class="result-ledger" style="max-width: 640px;">
   <div class="result-ledger-header">
     <span class="result-tag">Converted Text</span>
   </div>

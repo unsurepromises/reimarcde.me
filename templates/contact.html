@@ -5,10 +5,14 @@
 {% block content %}
 <section class="header-ledger">
   <h1 class="header-title">Contact</h1>
-  <p class="header-subtitle">Get in touch for academic or software inquiries.</p>
+  <p class="header-subtitle">Get in touch for academic, software engineering, or technical inquiries.</p>
 </section>
 
 <section class="section-block">
+  <div class="section-ledger-bar">
+    <h2 class="section-title">Channels</h2>
+  </div>
+
   <div class="contact-card-list">
     <!-- Channel 1: Email -->
     <div class="contact-channel-item">
@@ -20,12 +24,12 @@
         <button 
           type="button" 
           class="btn-control" 
-          onclick="navigator.clipboard.writeText('sjohnreimarc@gmail.com').then(()=>{this.textContent='Copied!'; setTimeout(()=>this.textContent='Copy', 1500);})"
+          onclick="navigator.clipboard.writeText('sjohnreimarc@gmail.com').then(()=>{this.textContent='Copied'; setTimeout(()=>this.textContent='Copy', 1500);})"
           aria-label="Copy email address"
         >
           Copy
         </button>
-        <a href="mailto:sjohnreimarc@gmail.com" class="btn-control btn-primary">Send Email</a>
+        <a href="mailto:sjohnreimarc@gmail.com" class="btn-control btn-primary">Send Email &rarr;</a>
       </div>
     </div>
 
@@ -37,7 +41,7 @@
       </div>
       <div class="channel-action">
         <a href="https://github.com/unsurepromises" target="_blank" rel="noopener noreferrer" class="btn-control">
-          View GitHub
+          View GitHub &rarr;
         </a>
       </div>
     </div>
@@ -50,7 +54,7 @@
       </div>
       <div class="channel-action">
         <a href="https://linkedin.com/in/reimarcsohitado" target="_blank" rel="noopener noreferrer" class="btn-control">
-          View Profile
+          View Profile &rarr;
         </a>
       </div>
     </div>

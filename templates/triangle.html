@@ -7,13 +7,13 @@
 
 <section class="header-ledger">
   <h1 class="header-title">Area of a Triangle</h1>
-  <p class="header-subtitle">Calculates the area of a triangle given base and height.</p>
+  <p class="header-subtitle">Calculates the planar area of a triangle given base and height values (Area = 0.5 × b × h).</p>
 </section>
 
-<div class="dossier-panel">
+<div class="dossier-panel" style="max-width: 640px;">
   <form action="/works/area/triangle" method="post" class="form-dense">
     <div class="form-group">
-      <label for="base" class="form-label">Base</label>
+      <label for="base" class="form-label">Base Dimension (b)</label>
       <input 
         type="number" 
         step="any" 
@@ -27,7 +27,7 @@
     </div>
 
     <div class="form-group">
-      <label for="height" class="form-label">Height</label>
+      <label for="height" class="form-label">Height Dimension (h)</label>
       <input 
         type="number" 
         step="any" 
@@ -47,7 +47,7 @@
 </div>
 
 {% if result is not none %}
-<section class="result-ledger">
+<section class="result-ledger" style="max-width: 640px;">
   <div class="result-ledger-header">
     <span class="result-tag">Result</span>
   </div>

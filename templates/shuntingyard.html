@@ -1,54 +1,124 @@
 {% extends "base.html" %}
 
-{% block title %}Infix to Postfix{% endblock %}
+{% block title %}Shunting-Yard Algorithm{% endblock %}
 
 {% block content %}
 <a href="/works" class="back-ledger-link">← Back to Works</a>
 
 <section class="header-ledger">
-  <h1 class="header-title">Infix to Postfix</h1>
-  <p class="header-subtitle">Converts mathematical infix expressions to postfix notation (RPN).</p>
+  <h1 class="header-title">Shunting-Yard Algorithm</h1>
+  <p class="header-subtitle">Operator-precedence parser converting mathematical infix expressions to postfix notation (RPN).</p>
 </section>
 
-<div class="dossier-panel" style="max-width: 600px; margin: 0 auto;">
-  <form action="/works/shunting-yard" method="post" class="form-dense">
-    <div class="form-group">
-      <label for="expression" class="form-label">Expression</label>
-      <input 
-        type="text" 
-        id="expression" 
-        name="expression" 
-        class="input-field" 
-        style="font-family: var(--font-mono);"
-        placeholder="Enter infix expression (e.g. (A + B) * C ^ 2)..."
-        value="{{ expression|default('') }}"
-        autocomplete="off"
-        required
-      >
+<div class="workbench-split">
+  <!-- Left Control Sidebar -->
+  <aside class="workbench-sidebar">
+    <div class="controls-card">
+      <div class="dossier-panel-header">
+        <span class="dossier-panel-title">Expression Parser</span>
+      </div>
+      <form action="/works/shunting-yard" method="post" class="form-dense">
+        <div class="form-group">
+          <label for="expression" class="form-label">Infix Expression</label>
+          <input 
+            type="text" 
+            id="expression" 
+            name="expression" 
+            class="input-field" 
+            placeholder="(A + B) * C ^ 2"
+            value="{{ expression|default('') }}"
+            autocomplete="off"
+            required
+          >
+        </div>
+
+        <button type="submit" class="btn-control btn-primary btn-full">Convert Expression</button>
+      </form>
+
+      {% if error %}
+      <div class="alert-banner alert-error" role="alert" style="margin-top: 1rem; margin-bottom: 0;">
+        <span class="alert-text">{{ error }}</span>
+      </div>
+      {% elif message %}
+      <div class="alert-banner alert-error" role="alert" style="margin-top: 1rem; margin-bottom: 0;">
+        <span class="alert-text">{{ message }}</span>
+      </div>
+      {% endif %}
     </div>
 
-    <div class="form-group">
-      <button type="submit" class="btn-control btn-primary">Convert</button>
+    <div class="controls-card">
+      <div class="dossier-panel-header">
+        <span class="dossier-panel-title">Operator Precedence</span>
+      </div>
+      <div class="table-responsive" style="margin-bottom: 0;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Operator</th>
+              <th>Precedence</th>
+              <th>Associativity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-val">^</td>
+              <td class="col-val">3</td>
+              <td class="col-val">Right</td>
+            </tr>
+            <tr>
+              <td class="col-val">* /</td>
+              <td class="col-val">2</td>
+              <td class="col-val">Left</td>
+            </tr>
+            <tr>
+              <td class="col-val">+ -</td>
+              <td class="col-val">1</td>
+              <td class="col-val">Left</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </form>
+  </aside>
 
-  {% if error %}
-  <div class="alert-banner" role="alert" style="margin-top: 1.25rem;">
-    <span class="alert-text">{{ error }}</span>
-  </div>
-  {% elif message %}
-  <div class="alert-banner" role="alert" style="margin-top: 1.25rem;">
-    <span class="alert-text">{{ message }}</span>
-  </div>
-  {% endif %}
-
-  {% if result is not none and result != '' %}
-  <section class="result-ledger" style="margin-top: 1.25rem;">
-    <div class="result-ledger-header">
-      <span class="result-tag">Postfix Result</span>
+  <!-- Right Viewport -->
+  <main class="workbench-viewport" tabindex="0" role="region" aria-label="Postfix Output Viewport">
+    <div class="workbench-viewport-header">
+      <span class="dossier-panel-title">Postfix Output</span>
+      <span class="badge">{% if result is not none and result != '' %}Converted{% else %}Standby{% endif %}</span>
     </div>
-    <div class="result-output-box">{{ result }}</div>
-  </section>
-  {% endif %}
+
+    <div class="viewport-canvas">
+      {% if result is not none and result != '' %}
+        <span class="reg-tag reg-head">START</span>
+        <span class="chain-pointer">&rarr;</span>
+        {% for token in result.split() %}
+          <div class="mem-struct-wrapper">
+            <span class="mem-addr-tag">0x7FF0{{ loop.index0 * 4 }}</span>
+            <div class="mem-struct">
+              <span class="mem-cell mem-cell-data">{{ token }}</span>
+              <span class="mem-cell mem-cell-next">{% if loop.last %}EOF{% else %}*NEXT{% endif %}</span>
+            </div>
+          </div>
+          {% if not loop.last %}
+            <span class="chain-pointer">&rarr;</span>
+          {% endif %}
+        {% endfor %}
+        <span class="chain-pointer">&rarr;</span>
+        <span class="reg-tag reg-null">EOF</span>
+      {% else %}
+        <span class="empty-state-notice">Enter an infix expression to view the token stream</span>
+      {% endif %}
+    </div>
+
+    {% if result is not none and result != '' %}
+    <div class="result-ledger" style="margin-top: 1rem;">
+      <div class="result-ledger-header">
+        <span class="result-tag">Result</span>
+      </div>
+      <div class="result-output-box">{{ result }}</div>
+    </div>
+    {% endif %}
+  </main>
 </div>
 {% endblock %}
